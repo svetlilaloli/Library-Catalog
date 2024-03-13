@@ -1,7 +1,6 @@
 import { register } from '../api/data.js';
 import { html } from '../../node_modules/lit-html/lit-html.js';
 
-
 const registerTemplate = (onSubmit) => html`
 <section id="register-page" class="register">
     <form @submit=${onSubmit} id="register-form" action="" method="">
@@ -30,8 +29,6 @@ const registerTemplate = (onSubmit) => html`
     </form>
 </section>`;
 
-
-
 export async function registerPage(ctx) {
     ctx.render(registerTemplate(onSubmit));
 
@@ -53,8 +50,5 @@ export async function registerPage(ctx) {
         await register(email, password);
         ctx.setUserNav();
         ctx.page.redirect('/catalog');
-
-
-
     }
 }

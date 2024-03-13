@@ -1,8 +1,8 @@
-(function(global, factory) {
+(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('http'), require('fs'), require('crypto')) :
         typeof define === 'function' && define.amd ? define(['http', 'fs', 'crypto'], factory) :
-        (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Server = factory(global.http, global.fs, global.crypto));
-}(this, (function(http, fs, crypto) {
+            (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Server = factory(global.http, global.fs, global.crypto));
+}(this, (function (http, fs, crypto) {
     'use strict';
 
     function _interopDefaultLegacy(e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -68,7 +68,6 @@
     };
 
     const { ServiceError: ServiceError$1 } = errors;
-
 
     function createHandler(plugins, services) {
         return async function handler(req, res) {
@@ -158,8 +157,6 @@
             }
         };
     }
-
-
 
     function composeErrorObject(code, message) {
         return JSON.stringify({
@@ -298,7 +295,7 @@
     var Service_1 = Service;
 
     function uuid() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             let r = Math.random() * 16 | 0,
                 v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
@@ -310,7 +307,6 @@
     };
 
     const uuid$1 = util.uuid;
-
 
     const data = fs__default['default'].existsSync('./data') ? fs__default['default'].readdirSync('./data').reduce((p, c) => {
         const content = JSON.parse(fs__default['default'].readFileSync('./data/' + c));
@@ -407,7 +403,6 @@
     dataService.patch(':collection', actions.patch);
     dataService.delete(':collection', actions.delete);
 
-
     var jsonstore = dataService.parseRequest;
 
     /*
@@ -416,15 +411,12 @@
 
     const { AuthorizationError: AuthorizationError$1 } = errors;
 
-
-
     const userService = new Service_1();
 
     userService.get('me', getSelf);
     userService.post('register', onRegister);
     userService.post('login', onLogin);
     userService.get('logout', onLogout);
-
 
     function getSelf(context, tokens, query, body) {
         if (context.user) {
@@ -452,7 +444,6 @@
 
     const { NotFoundError: NotFoundError$1, RequestError: RequestError$1 } = errors;
 
-
     var crud = {
         get,
         post,
@@ -460,7 +451,6 @@
         patch,
         delete: del
     };
-
 
     function validateRequest(context, tokens, query) {
         /*
@@ -516,7 +506,6 @@
             return operators[operator.toLowerCase()](prop, value);
         }
     }
-
 
     function get(context, tokens, query, body) {
         validateRequest(context, tokens);
@@ -821,7 +810,6 @@
 
     const { uuid: uuid$2 } = util;
 
-
     function initPlugin(settings) {
         const storage = createInstance(settings.seedData);
         const protectedStorage = createInstance(settings.protectedData);
@@ -831,7 +819,6 @@
             context.protectedStorage = protectedStorage;
         };
     }
-
 
     /**
      * Create storage instance and populate with seed data
@@ -852,7 +839,6 @@
                 collections.set(collectionName, collection);
             }
         }
-
 
         // Manipulation
 
@@ -987,7 +973,7 @@
             const targetCollection = collections.get(collection);
             const result = [];
             // Iterate entries of target collection and compare each property with the given query
-            for (let [key, entry] of[...targetCollection.entries()]) {
+            for (let [key, entry] of [...targetCollection.entries()]) {
                 let match = true;
                 for (let prop in entry) {
                     if (query.hasOwnProperty(prop)) {
@@ -1012,10 +998,8 @@
 
             return result;
         }
-
-        return {get, add, set, merge, delete: del, query };
+        return { get, add, set, merge, delete: del, query };
     }
-
 
     function assignSystemProps(target, entry, ...rest) {
         const whitelist = [
@@ -1032,10 +1016,8 @@
         if (rest.length > 0) {
             Object.assign(target, ...rest);
         }
-
         return target;
     }
-
 
     function assignClean(target, entry, ...rest) {
         const blacklist = [
@@ -1052,7 +1034,6 @@
         if (rest.length > 0) {
             Object.assign(target, ...rest);
         }
-
         return target;
     }
 
@@ -1107,8 +1088,8 @@
                     body.password.length == 0) {
                     throw new RequestError$2('Missing fields');
                 } else if (context.protectedStorage.query('users', {
-                        [identity]: body[identity]
-                    }).length !== 0) {
+                    [identity]: body[identity]
+                }).length !== 0) {
                     throw new ConflictError$1(`A user with the same ${identity} already exists`);
                 } else {
                     const newUser = Object.assign({}, body, {
@@ -1173,7 +1154,6 @@
             }
         };
     }
-
 
     const secret = 'This is not a production server';
 
@@ -1404,10 +1384,6 @@
     console.log(`Server started on port ${port}. You can make requests to http://localhost:${port}/`);
     console.log(`Admin panel located at http://localhost:${port}/admin`);
 
-    var softuniPracticeServer = {
-
-    };
-
+    var softuniPracticeServer = {};
     return softuniPracticeServer;
-
 })));

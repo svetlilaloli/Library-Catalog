@@ -1,7 +1,6 @@
 import { html } from '../../node_modules/lit-html/lit-html.js';
 import { getBookById, updateBook } from '../api/data.js';
 
-
 const editTemplate = (book, onSubmit) => html`
 <section id="edit-page" class="edit">
     <form @submit=${onSubmit} id="edit-form" action="#" method="">
@@ -43,7 +42,6 @@ const editTemplate = (book, onSubmit) => html`
 </section>
 `;
 
-
 export async function editPage(ctx) {
     const id = ctx.params.id;
     const book = await getBookById(id);
@@ -62,7 +60,7 @@ export async function editPage(ctx) {
             return alert('All fields are required!');
         }
 
-        await updateBook(id, {title, description, imageUrl, type});
+        await updateBook(id, { title, description, imageUrl, type });
         ctx.page.redirect('/details/' + id);
     }
 }

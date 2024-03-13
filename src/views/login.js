@@ -1,8 +1,6 @@
 import { html } from '../../node_modules/lit-html/lit-html.js';
 import { login } from '../api/data.js';
 
-
-
 const loginTemplate = (onSubmit) => html`
 <section id="login-page" class="login">
             <form @submit =${onSubmit} id="login-form" action="" method="">
@@ -26,8 +24,6 @@ const loginTemplate = (onSubmit) => html`
         </section>
 `;
 
-
-
 export async function loginPage(ctx) {
     ctx.render(loginTemplate(onSubmit));
 
@@ -37,14 +33,12 @@ export async function loginPage(ctx) {
         const email = formData.get('email').trim();
         const password = formData.get('password').trim();
 
-     
-            if (!email || !password) {
-               return alert('All fields are required!');
-            }
+        if (!email || !password) {
+            return alert('All fields are required!');
+        }
 
-            await login(email, password);
-            ctx.setUserNav();
-            ctx.page.redirect('/catalog');
-
+        await login(email, password);
+        ctx.setUserNav();
+        ctx.page.redirect('/catalog');
     }
 }
