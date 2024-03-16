@@ -13,8 +13,8 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
     - name: Start frontend
-      run: npm start-fe
+      run: npm run start-fe
     - name: Start backend
-      run: npm npm start-be
+      run: npm run start-be
     - name: Run tests
-      run: npm npm start-be
+      run: npm test
