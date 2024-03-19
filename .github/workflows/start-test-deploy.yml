@@ -1,4 +1,4 @@
-name: Start Test Deploy
+name: Build Test Deploy
 
 on:
   push:
@@ -12,11 +12,22 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
-    - name: Install packages
+    - name: Use Node.js 20.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.x
+        cache: 'npm'
+    - name: Install package.json dependencies
       run: npm install
     - name: Start frontend
-      run: npm run start-fe
+      run: npm run start-fe &
+    - name: Sleep 5 seconds
+      run: sleep 5
     - name: Start backend
-      run: npm run start-be
+      run: npm run start-be &
+    - name: Sleep 5 seconds
+      run: sleep 5
+    - name: Install Playwright browsers
+      run: npx playwright install
     - name: Run tests
-      run: npm test
+      run: npm run test
