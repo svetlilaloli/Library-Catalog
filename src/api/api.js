@@ -1,5 +1,7 @@
+import * as config from "../config.js";
+
 export const settings = {
-    host: '',
+    host: config.settings.host,
 };
 
 async function request(url, options) {
