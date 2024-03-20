@@ -19,6 +19,8 @@ jobs:
         cache: 'npm'
     - name: Install package.json dependencies
       run: npm install
+    - name: Replace config settings
+      run: echo "export const settings = { host:\"http://localhost:3000\" }" > src/config.js
     - name: Start frontend
       run: npm run start-fe &
     - name: Sleep 5 seconds
