@@ -35,6 +35,7 @@ jobs:
       run: npm run test
   deploy-be:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     needs: build-and-test
     steps:
       - name: Deploy to Render.com
@@ -44,6 +45,7 @@ jobs:
           api-key: ${{ secrets.RENDER_TOKEN }}
   deploy-fe:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     needs: deploy-be
     steps:
       - name: Deploy to Render.com
