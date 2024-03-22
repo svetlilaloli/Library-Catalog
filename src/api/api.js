@@ -1,6 +1,6 @@
 import * as config from "../config.js";
 
-export const settings = config.settings.host;
+export const settings = config.settings;
 
 async function request(url, options) {
     try {
@@ -57,6 +57,7 @@ export async function put(url, data) {
 export async function del(url) {
     return await request(url, getOptions('delete'));
 }
+
 
 export async function login(email, password) {
     const result = await post(settings.host + '/users/login', { email, password });
