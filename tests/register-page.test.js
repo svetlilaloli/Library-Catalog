@@ -1,12 +1,12 @@
 const {test, expect} = require('@playwright/test');
 
-const server = 'http://localhost:3000';
-const registerUrl = `${server}/register`;
 const email = 'john@abv.bg';
 const password = '123456';
 
+test.describe.configure({ mode: "serial" });
+
 test.beforeEach(async ({ page }) => {
-    await page.goto(registerUrl);
+    await page.goto('/register');
 });
 
 test('Register with valid credentials', async ({ page }) => {
@@ -15,7 +15,7 @@ test('Register with valid credentials', async ({ page }) => {
     await page.fill('input[name="confirm-pass"]', password);
     await page.click('input[type="submit"]');
     await page.$('a[href="/catalog"]');
-    expect(page.url()).toBe(`${server}/catalog`);
+    expect(page.url()).toContain('/catalog');
 });
 
 test('Register with blank input fields', async ({ page }) => {
@@ -26,7 +26,7 @@ test('Register with blank input fields', async ({ page }) => {
         await dialog.accept();
     });
     await page.$('a[href="/register"]');
-    expect(page.url()).toBe(registerUrl);
+    expect(page.url()).toContain('/register');
 });
 
 test('Register with blank email field', async ({ page }) => {
@@ -39,7 +39,7 @@ test('Register with blank email field', async ({ page }) => {
         await dialog.accept();
     });
     await page.$('a[href="/register"]');
-    expect(page.url()).toBe(registerUrl);
+    expect(page.url()).toContain('/register');
 });
 
 test('Register with blank password field', async ({ page }) => {
@@ -51,7 +51,7 @@ test('Register with blank password field', async ({ page }) => {
         await dialog.accept();
     });
     await page.$('a[href="/register"]');
-    expect(page.url()).toBe(registerUrl);
+    expect(page.url()).toContain('/register');
 });
 
 test('Register with blank confirm-password field', async ({ page }) => {
@@ -64,7 +64,7 @@ test('Register with blank confirm-password field', async ({ page }) => {
         await dialog.accept();
     });
     await page.$('a[href="/register"]');
-    expect(page.url()).toBe(registerUrl);
+    expect(page.url()).toContain('/register');
 });
 
 test('Register with not matching passwords', async ({ page }) => {
@@ -78,5 +78,5 @@ test('Register with not matching passwords', async ({ page }) => {
         await dialog.accept();
     });
     await page.$('a[href="/register"]');
-    expect(page.url()).toBe(registerUrl);
+    expect(page.url()).toContain('/register');
 });

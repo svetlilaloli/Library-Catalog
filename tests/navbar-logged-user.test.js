@@ -1,11 +1,12 @@
 const { test, expect } = require('@playwright/test');
 
-const baseUrl = 'http://localhost:3000/login';
 const email = 'john@abv.bg';
 const password = '123456';
 
+test.describe.configure({ mode: "serial" });
+
 test.beforeEach(async ({ page }) => {
-    await page.goto(baseUrl);
+    await page.goto('/login');
 });
 
 test('Verify All Books link is visible', async ({page}) => {

@@ -1,9 +1,9 @@
 const { test, expect } = require('@playwright/test');
 
-const baseUrl = 'http://localhost:3000';
+test.describe.configure({ mode: "serial" });
 
 test.beforeEach(async ({ page }) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
 });
 
 test('Verify All Books link is visible', async ({page}) => {

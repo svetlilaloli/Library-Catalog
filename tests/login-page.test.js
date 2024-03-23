@@ -1,12 +1,12 @@
 const { test, expect } = require('@playwright/test');
 
-const server = 'http://localhost:3000'
-const loginUrl = `${server}/login`;
 const email = 'john@abv.bg';
 const password = '123456';
 
+test.describe.configure({ mode: "serial" });
+
 test.beforeEach(async ({ page }) => {
-    await page.goto(loginUrl);
+    await page.goto('/login');
 });
 
 test('Login with valid credentials', async ({ page }) => {
@@ -14,7 +14,7 @@ test('Login with valid credentials', async ({ page }) => {
     await page.fill('input[name="password"]', password);
     await page.click('input[type="submit"]');
     await page.$('a[href="/catalog"]');
-    expect(page.url()).toBe(`${server}/catalog`);
+    expect(page.url()).toContain('/catalog');
 });
 
 test('Login with blank input fields', async ({ page }) => {
@@ -25,7 +25,7 @@ test('Login with blank input fields', async ({ page }) => {
         await dialog.accept();
     });
     page.locator('a[href="/login"]');
-    expect(page.url()).toBe(loginUrl);
+    expect(page.url()).toContain('/login');
 });
 
 test('Login with blank email field', async ({ page }) => {
@@ -37,7 +37,7 @@ test('Login with blank email field', async ({ page }) => {
         await dialog.accept();
     });
     page.locator('a[href="/login"]');
-    expect(page.url()).toBe(loginUrl);
+    expect(page.url()).toContain('/login');
 });
 
 test('Login with blank password field', async ({ page }) => {
@@ -49,5 +49,5 @@ test('Login with blank password field', async ({ page }) => {
         await dialog.accept();
     });
     page.locator('a[href="/login"]');
-    expect(page.url()).toBe(loginUrl);
+    expect(page.url()).toContain('/login');
 });
